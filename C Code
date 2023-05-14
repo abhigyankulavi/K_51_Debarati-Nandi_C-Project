@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct account {
+  int account_number;
+  char name[100];
+  float balance;
+};
+
+void create_account(struct account *account) {
+  printf("Enter the account number: ");
+  scanf("%d", &account->account_number);
+
+  printf("Enter the name: ");
+  scanf("%s", account->name);
+
+  printf("Enter the initial balance: ");
+  scanf("%f", &account->balance);
+}
+
+void deposit_money(struct account *account, float amount) {
+  account->balance += amount;
+}
+
+void withdraw_money(struct account *account, float amount) {
+  if (account->balance < amount) {
+    printf("Insufficient balance.\n");
+    return;
+  }
+
+  account->balance -= amount;
+}
+
+void view_balance(struct account *account) {
+  printf("Balance: %.2f\n", account->balance);
+}
+
+int main() {
+  struct account account;
+
+  create_account(&account);
+
+  deposit_money(&account, 1000);
+
+  view_balance(&account);
+
+  withdraw_money(&account, 500);
+
+  view_balance(&account);
+
+  return 0;
+}
